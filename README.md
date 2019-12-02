@@ -45,5 +45,13 @@ Monitoring the specified local directory and send the created or modified file t
  * does not detect .swp or .swx files 
 
 
+# Stuff it doesn't do  
+
+* It's Linux focused and probably won't work on ohter systmes.  
+* the file size is limited to 10MB.  
+* it doesn't detect the directory recursively.  
+
+
+
 
 
