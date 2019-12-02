@@ -8,7 +8,8 @@
 #include<mutex>
 #include<queue>
 #include"Semaphore.h"
-
+#include"Mutex.h"
+#include<cstring>
 /**
 * Created by Horoyoii on 2019.11.12..
 */
@@ -31,8 +32,9 @@ private:
 
     std::queue<std::string>*    event_queue;
     Semaphore*                  sem;
+    Mutex*                      mtx;
 public:
-    LocalMonitor(std::string path, std::queue<std::string>* eq, Semaphore* sem);
+    LocalMonitor(std::string path, std::queue<std::string>* eq, Semaphore* sem, Mutex* mtx);
 
     int init();
     void run();

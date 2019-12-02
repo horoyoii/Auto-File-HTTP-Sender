@@ -1,13 +1,14 @@
 #include"AutoFileSender.h"
 
-AutoFileSender::AutoFileSender(string server_ip, string path)
-:server_ip(server_ip), path(path){
+AutoFileSender::AutoFileSender(string server_ip, string path, string port, string dir_path)
+    :dir_path(dir_path){
 
     event_queue = new queue<string>();
     sem = new Semaphore();
+    mtx = new Mutex();
 
-    localMonitor = new LocalMonitor(path, event_queue, sem);
-    sender = new Sender(server_ip, event_queue, sem);
+    localMonitor = new LocalMonitor(dir_path, event_queue, sem, mtx);
+    sender = new Sender(server_ip, path, port, dir_path, event_queue, sem, mtx);
 
 }
 

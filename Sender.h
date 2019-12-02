@@ -6,6 +6,8 @@
 #include<unistd.h>
 #include<queue>
 #include"Semaphore.h"
+#include"Mutex.h"
+#include"HttpClient.h"
 
 /**
 * Created by Horoyoii on 2019.11.12..
@@ -18,14 +20,15 @@
 */
 
 class Sender{
-private:
-    std::string                 server_ip;      
+private:   
     std::queue<std::string>*    event_queue;
     Semaphore*                  sem;
-
-
+    Mutex*                      mtx;
+    HttpClient*                 httpClient;
+    
+    std::string                 dir_path;
 public:
-    Sender(std::string server_ip, std::queue<std::string>* eq, Semaphore* sem);
+    Sender(std::string server_ip, std::string path, std::string port, std::string dir_path, std::queue<std::string>* eq, Semaphore* sem, Mutex* mtx);
 
     void run();
 

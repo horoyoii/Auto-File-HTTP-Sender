@@ -15,7 +15,7 @@
 int main(void){
     int fd;
     int wd; /*watch desc  */
-    const char* path = ".";
+    const char* path = "/tmp2/";
     
     fd = inotify_init(); // add inotify instance
     if(fd < 0)

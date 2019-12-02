@@ -8,7 +8,7 @@
 #include"LocalMonitor.h"
 #include"Sender.h"
 #include"Semaphore.h"
-
+#include"Mutex.h"
 
 using namespace std;
 
@@ -19,18 +19,17 @@ private:
     Sender*         sender;
     queue<string>*  event_queue;
     Semaphore*      sem;
-    
-    string          server_ip;
-    string          path;
+    Mutex*          mtx;            // mutex for event queue
+    string          dir_path;
 
 
 
 public:
-    AutoFileSender(string server_ip, string path);
+    AutoFileSender(string server_ip, string path, string port, string dir_path);
 
     void run();
 
 };
 
 
-#endif AUTOFILESENDER
+#endif
