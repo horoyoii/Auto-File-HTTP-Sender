@@ -25,6 +25,7 @@ void HttpClient::sendFile(string filePath){
     buildPacket(&packet, header, body, headerSize, bodySize);
 
     
+        
     sendRequest(packet);
        
     printf("Send done\n");
@@ -58,9 +59,11 @@ int HttpClient::buildPayload(char** req_body, string filename, int* bodySize){
     //TODO : to customize the name field and automatically set the Content-type 
     // === make body ======================================
     sprintf(meta_body, "--%s\r\nContent-Disposition: form-data; name=\"%s\";filename=\"%s\"\r\n"
-    "Content-Type:image/png\r\n\r\n"
-    ,  boundary.c_str(), name.c_str(), filename.c_str());
+    "Content-Type:%s\r\n\r\n"
+    ,  boundary.c_str(), name.c_str(), filename.c_str(), MimeTypes::getType(filename.c_str()));
 
+    
+    printf("%s\n", meta_body);
 
     sprintf(post_body, "\r\n--%s--\r\n", boundary.c_str());
 

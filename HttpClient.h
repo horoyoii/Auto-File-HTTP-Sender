@@ -9,7 +9,7 @@
 #include <boost/asio.hpp>
 
 #include "base64.h"
-
+#include "MimeTypes.h"
 using boost::asio::ip::tcp;
 using namespace std;
 
