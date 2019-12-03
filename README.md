@@ -37,6 +37,23 @@ Monitoring the specified local directory and send the created or modified file t
     }
  
 
+server side may look like (In python Django)  
+
+      @csrf_exempt
+      def upload_file(req):
+        if req.method == 'POST':                       
+             if 'file' in req.FILES:
+                  file = req.FILES['file']
+                  filename = file._name
+                  data = file.read()
+                  decoded = base64.b64decode(data)
+                  
+                  f = open("./upload/"+filename, "wb")
+                  f.write(decoded)
+                  f.close()
+                  return HttpResponse('File Uploaded')
+             else:
+                  return HttpResponse("no file field")
 # Features 
 
  * Simple C++ API  
