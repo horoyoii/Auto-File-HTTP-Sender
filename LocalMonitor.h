@@ -6,10 +6,12 @@
 #include<string>
 #include<unistd.h>
 #include<mutex>
-#include<queue>
+
 #include"Semaphore.h"
-#include"Mutex.h"
+#include"SafeQueue.h"
+
 #include<cstring>
+
 /**
 * Created by Horoyoii on 2019.11.12..
 */
@@ -30,11 +32,10 @@ private:
     int             wd;
     int             error_type;
 
-    std::queue<std::string>*    event_queue;
+    SafeQueue<std::string>*     event_queue;
     Semaphore*                  sem;
-    Mutex*                      mtx;
 public:
-    LocalMonitor(std::string path, std::queue<std::string>* eq, Semaphore* sem, Mutex* mtx);
+    LocalMonitor(std::string path, SafeQueue<std::string>* eq, Semaphore* sem);
 
     int init();
     void run();

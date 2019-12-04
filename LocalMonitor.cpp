@@ -2,12 +2,11 @@
 
 
 
-LocalMonitor::LocalMonitor(std::string path, std::queue<std::string>* eq, Semaphore* sem, Mutex* mtx){
+LocalMonitor::LocalMonitor(std::string path, SafeQueue<std::string>* eq, Semaphore* sem){
     this->path = path;
     this->event_queue = eq;
     this->sem = sem;
-    this->mtx = mtx;
-    
+        
 }
 
 int LocalMonitor::init(){
@@ -78,13 +77,10 @@ void LocalMonitor::handleEvent(struct inotify_event* event){
       
         if(event->mask & (IN_CREATE | IN_MOVED_TO | IN_MODIFY)){
             
-            // filter the .swp .swx
             std::string e_name(event->name);
-            
-            mtx->Lock();
-            event_queue->push(event->name);
-            mtx->UnLock();
-
+              
+            event_queue->enqueue(event->name);
+        
             sem->notify();
         }
 

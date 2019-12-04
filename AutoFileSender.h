@@ -8,19 +8,18 @@
 #include"LocalMonitor.h"
 #include"Sender.h"
 #include"Semaphore.h"
-#include"Mutex.h"
+#include"SafeQueue.h"
 
 using namespace std;
 
 
 class AutoFileSender{
 private:
-    LocalMonitor*   localMonitor;
-    Sender*         sender;
-    queue<string>*  event_queue;
-    Semaphore*      sem;
-    Mutex*          mtx;            // mutex for event queue
-    string          dir_path;
+    LocalMonitor*       localMonitor;
+    Sender*             sender;
+    SafeQueue<string>*  event_queue;
+    Semaphore*          sem;
+    string              dir_path;
 
 
 

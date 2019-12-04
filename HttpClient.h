@@ -32,7 +32,7 @@ private:
 
 public:
     HttpClient(string servIp, string path, string port);
-    void sendFile(string filePath);  
+    void sendFile(string filePath, string filename);  
 
 
 private:
@@ -52,7 +52,7 @@ private:
     *
     *  return -1 if file does not exist
     */
-    int buildPayload(char** req_body, string filename, int* bodySize);
+    int buildPayload(char** req_body, string filePath, string filename, int* bodySize);
 
 
 
@@ -75,7 +75,6 @@ private:
     * send request to specified server and get response 
     */
     void sendRequest(char* packet);
-
     
     void setName(string _name);
     void setBoundary(string _boundary);    

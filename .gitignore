@@ -1,5 +1,7 @@
 *.swp
 *.o
-
+test.*
+Mutex.h
+Mutex.cpp
 
 BoostAsio/

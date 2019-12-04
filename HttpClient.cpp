@@ -7,7 +7,7 @@ HttpClient::HttpClient(string servIp, string path, string port)
     boundary = "----WebKitFormBoundaryu8FzpUGNDgydoA4z";
 }
 
-void HttpClient::sendFile(string filePath){
+void HttpClient::sendFile(string filePath, string fileName){
     char* packet;   // request header + body 
     char* header;   // = (char*)calloc(sizeof(char), 
     char* body;     //         
@@ -15,7 +15,7 @@ void HttpClient::sendFile(string filePath){
     int headerSize;
     int bodySize;
 
-    int res = buildPayload(&body, filePath, &bodySize);
+    int res = buildPayload(&body, filePath, fileName, &bodySize);
             
     if(res == -1) // if file does not exist
         return;
@@ -23,8 +23,6 @@ void HttpClient::sendFile(string filePath){
     buildHeader(&header, bodySize, &headerSize);
     
     buildPacket(&packet, header, body, headerSize, bodySize);
-
-    
         
     sendRequest(packet);
        
@@ -46,7 +44,8 @@ void HttpClient::buildHeader(char** header, int bodySize, int* headerSize){
 }
 
 
-int HttpClient::buildPayload(char** req_body, string filename, int* bodySize){
+
+int HttpClient::buildPayload(char** req_body, string filepath, string filename, int* bodySize){
     
     *req_body = (char*)calloc(sizeof(char), 1024*1024*10);
 
@@ -54,7 +53,6 @@ int HttpClient::buildPayload(char** req_body, string filename, int* bodySize){
     char*   fileBuf;
     char    post_body[1024];
     int     filesize; 
-
 
     //TODO : to customize the name field and automatically set the Content-type 
     // === make body ======================================
@@ -67,7 +65,7 @@ int HttpClient::buildPayload(char** req_body, string filename, int* bodySize){
 
     sprintf(post_body, "\r\n--%s--\r\n", boundary.c_str());
 
-    filesize = getEncodedBinaryFileBuffer(&fileBuf, filename);
+    filesize = getEncodedBinaryFileBuffer(&fileBuf, filepath);
     
     if(filesize == -1){ // file does not exist
         return -1;

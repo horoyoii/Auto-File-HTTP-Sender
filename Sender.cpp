@@ -1,11 +1,10 @@
 #include"Sender.h"
 
-Sender::Sender(std::string server_ip, std::string path, std::string port, std::string dir_path, std::queue<std::string>* eq, Semaphore* sem, Mutex* mtx){
+Sender::Sender(std::string server_ip, std::string path, std::string port, std::string dir_path, SafeQueue<std::string>* eq, Semaphore* sem){
 
     httpClient = new HttpClient(server_ip, path, port);
     this->event_queue = eq;
     this->sem = sem;
-    this->mtx = mtx;
     this->dir_path = dir_path;
 }
 
@@ -14,14 +13,10 @@ void Sender::run(){
     
     while(1){        
         sem->wait();        
-
-        // lock 
-        mtx->Lock();
         
-        std::string event = event_queue->front(); event_queue->pop();
+        std::string event = event_queue->dequeue();
         std::cout<<"get event : "<<event<<std::endl;
-        
-        mtx->UnLock();
+       
         /** 
         *   Need to time for filesystem...
             
@@ -38,8 +33,8 @@ void Sender::run(){
         
         
         std::cout<<"send to server : "<<event<<std::endl;
-        httpClient->sendFile(dir_path+ "/" + event);
-        // file not exist 시에 문제 발생        
+        httpClient->sendFile(dir_path+ "/" + event, event);
+    
     }
 
 
