@@ -24,6 +24,16 @@ Monitoring the specified local directory and send the created or modified file t
  
  # Usage 
  
+   AutoFileSender needs 4 params.  
+   1) server ip 
+   2) server path
+   3) server port  
+   4) directory path you want to watch  
+ ```c++
+ AutoFileSender con("127.0.0.1", "/upload/","8000","/home/horoyoii/Desktop");
+ ```
+ 
+ 
     #include"AutoFileSender.h"
 
     int main(int argc, char* argv[]){
