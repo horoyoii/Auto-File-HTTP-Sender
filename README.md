@@ -1,5 +1,5 @@
 # Introduction  
-Monitoring the specified local directory and send the created or modified file to web server automatically.  
+Monitoring the specified local directory and send the created or modified files to web server automatically.  
 
 * Monitoring the specified directory with a Linux Kernel subsystem [inotify](https://en.wikipedia.org/wiki/Inotify#References) utility.  
 * [Boost Asio C++](https://en.wikipedia.org/wiki/Asio_C%2B%2B_library) is used in networking.  
